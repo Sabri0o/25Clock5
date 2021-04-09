@@ -166,19 +166,28 @@ export default class Timer extends React.Component {
         ? 0
         : (Number(this.state.seconds) * 100) / 60;
 
-    const minutes = sessionOrBreak
-      ? this.state.seconds === -1 ||
-        (this.state.seconds === "00" &&
-          Number(this.state.minutes) === Number(sessionOrBreak))
+    const minutes =
+      Number(this.state.minutes) < 1 && sessionOrBreak === 1
+        ? seconds
+        : this.state.sessionOrBreak
+        ? this.state.seconds === -1 ||
+          (this.state.seconds === "00" &&
+            Number(this.state.minutes) === Number(sessionOrBreak))
+          ? 100
+          : this.state.seconds === "00" && Number(this.state.minutes) === 0
+          ? 0
+          : ((Number(this.state.minutes) + 1) * 100) /
+            Number(this.state.session)
+        : this.state.seconds === -1 ||
+          (this.state.seconds === "00" &&
+            Number(this.state.minutes) === Number(sessionOrBreak))
         ? 100
-        : ((Number(this.state.minutes) + 1) * 100) / Number(this.state.session)
-      : this.state.seconds === -1 ||
-        (this.state.seconds === "00" &&
-          Number(this.state.minutes) === Number(sessionOrBreak))
-      ? 100
-      : ((Number(this.state.minutes) + 1) * 100) / this.state.break;
+        : this.state.seconds === "00" && Number(this.state.minutes) === 0
+        ? 0
+        : ((Number(this.state.minutes) + 1) * 100) / this.state.break;
+
     return (
-      <div >
+      <div>
         <Container style={{ marginTop: "50px" }}>
           <Row className="justify-content-md-center" xs={2} md={2} lg={6}>
             <Col>
